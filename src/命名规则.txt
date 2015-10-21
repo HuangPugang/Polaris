@@ -1,0 +1,1 @@
+用户id规则:Integer.parseInt((System.currentTimeMillis()+"").substring(5))

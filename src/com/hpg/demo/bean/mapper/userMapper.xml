@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hpg.demo.dao.UserMapper">
+	<resultMap type="User" id="userResult">
+		<result column="user_id" property="user_id" />
+		<result column="user_username" property="user_username" />
+		<result column="user_profiles" property="user_profiles" />
+		<result column="user_portrait_url" property="user_portrait_url" />
+		<result column="user_password" property="user_password" />
+		<result column="user_createtime" property="user_createtime" />
+	</resultMap>
+	<!-- 保存一条用户信息 -->
+	<insert id="save" keyColumn="user_id" keyProperty="user_id"
+		useGeneratedKeys="true">
+		insert into user(
+		user_id,
+		user_username,
+		user_profiles,
+		user_portrait_url,
+		user_password,
+		user_createtime
+		)
+		values
+		(
+		#{user_id},
+		#{user_username},
+		#{user_profiles},
+		#{user_portrait_url},
+		#{user_password},
+		#{user_createtime}
+		)
+	</insert>
+	
+	<select id="findUserByUserName" resultMap="userResult">
+		select * from user
+		where user_username=#{userName}
+	</select>
+	
+	<!-- 更新头像 -->
+	<update id="updatePortrait">
+		update user set user_portrait_url = #{portraitUrl}
+		where user_id=#{userId}
+	</update>
+	
+	<update id="updateUserInfo">
+		update user set user_profiles=#{userProfiles},user_sex=#{userSex} where user_username=#{userName}
+	</update>
+	
+	<select id="getPortrait" resultType="String">
+		select
+		user_portrait_url from user where user_id=#{userId}
+	</select>
+
+	<select id="findUserById" resultMap="userResult"> select *
+		from user
+		where
+		user_id = #{id}
+	</select>
+	
+	
+
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hpg.demo.dao.CommentMapper">
+	<resultMap type="Comment" id="commentResult">
+	<result column="comment_id" property="comment_id" />
+	<result column="comment_content" property="comment_content" />
+	<result column="comment_createtime" property="comment_createtime" />
+	<result column="user_id" property="user_id" />
+	<result column="user_username" property="user_username" />
+	<result column="post_id" property="post_id" />
+	<result column="to_comment_id" property="to_comment_id" />
+	<result column="to_user_id" property="to_user_id" />
+	</resultMap>
+
+
+	<insert id="save">
+		insert into comment(
+		comment_id,
+		comment_content,
+		comment_createtime,
+		user_id,
+		user_username,
+		post_id,
+		to_comment_id,
+		to_user_id) 
+		values(
+		#{comment_id},
+		#{comment_content},
+		#{comment_createtime},
+		#{user_id},
+		#{user_username},
+		#{post_id},
+		#{to_comment_id},
+		#{to_user_id})
+	</insert>
+	<delete id="delete">
+		delete from comment where comment_id = #{comment_id}
+	</delete>
+	<!-- select * from table where id > #max_id# order by id limit n -->
+	<select id="getCommentListByPostId" resultMap="commentResult">
+		select * from comment where post_id = #{postId} order by comment_id limit 20
+	</select>
+	
+	<select id="getMoreCommentListByPostIdAndLastId" resultMap="commentResult">
+		select * from comment where comment_id >#{lastCommentId} and post_id = #{postId} order by comment_id limit 10
+	</select>
+
+</mapper>

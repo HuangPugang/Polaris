@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hpg.demo.dao.PostImageMapper">
+	<resultMap type="PostImage" id="postImageResult">
+		<result column="image_name" property="image_name" />
+		<result column="user_name" property="user_name" />
+		<result column="post_id" property="post_id" />
+	</resultMap>
+		<resultMap type="PostImageName" id="imageNameResult">
+		<result column="image_name" property="image_name" />
+	</resultMap>
+	
+	<insert id="insertImageByPostId">
+		insert into post_image(image_name,post_id) values (#{imageName},#{postId})
+	</insert>
+	<select id="findByPostId" resultMap="imageNameResult"> select image_name
+		from post_image
+		where
+		post_id
+		= #{postId}
+	</select>
+	
+		<select id="findImageByPostId" resultMap="postImageResult"> select *
+		from post_image
+		where
+		post_id
+		= #{postId}
+	</select>
+</mapper>
