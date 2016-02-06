@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hpg.demo.dao.BookMapper">
+	<resultMap type="Book" id="bookResult">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="author" property="author" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="createtime" property="createtime" />
+		<result column="description" property="description" />
+	</resultMap>
+	<!-- 保存一条用户信息 -->
+	<insert id="save"  >
+		insert into book(
+		name,
+		author,
+		user_id,
+		createtime,
+		user_name,
+		description
+		)
+		values
+		(
+		#{name},
+		#{author},
+		#{userId},
+		#{createTime},
+		#{userName},
+		#{description}
+		)
+	</insert>
+
+	<select id="getBooks" resultMap="bookResult">
+		select * from book limit #{startIndex},20 
+	</select>
+	
+	<select id="getBooksByUserId" resultMap="bookResult">
+		select * from book where user_id = #{userId} desc limit #{startIndex},20
+	</select>
+
+
+</mapper>

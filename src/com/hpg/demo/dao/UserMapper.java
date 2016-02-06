@@ -23,6 +23,8 @@ public interface UserMapper {
 	 */
 	public User findUserByUserName(@Param("userName")String userName);
 	
+	public User findUserByUserNameAndPassword(@Param("userName")String userName,@Param("password")String password);
+	
 	/**
 	 * 更新头像
 	 * @param portraitUrl 头像名称

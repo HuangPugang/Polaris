@@ -13,21 +13,28 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
+
 	<!-- spring自动扫描com.hpg.demo下的包 -->
 	<context:component-scan base-package="com.hpg.demo" />
-
+	<!-- json转换器 -->
+	<bean id="jsonConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 引入jdbc配置文件 -->
-	<!--
-		<context:property-placeholder location="jdbc.properties" />
-	--><!-- 1. 数据源 : BasicDataSource -->
+	<!-- <context:property-placeholder location="jdbc.properties" /> -->
+	<!-- 1. 数据源 : BasicDataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/single?characterEncoding=utf8" />
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/book?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
@@ -38,10 +45,8 @@
 		<!-- 自动将类的全名使用类名做为别名 -->
 		<property name="typeAliasesPackage" value="com.hpg.demo.bean" />
 		<!-- 自动扫描mybatis-config.xml文件下的配置文件 -->
-		<!--
-			<property name="configLocation" value="classpath:mybatis-config.xml"
-			/>
-		-->
+		<!-- <property name="configLocation" value="classpath:mybatis-config.xml" 
+			/> -->
 		<!-- 使用通配符自动扫描mapper文件，就不需要在mybatis-config.xml里配置mapper映射了 -->
 		<property name="mapperLocations"
 			value="classpath:com/hpg/demo/bean/mapper/*Mapper.xml" />
@@ -61,6 +66,15 @@
 
 	<!-- 5. 使用声明式事务 -->
 	<tx:annotation-driven transaction-manager="txManager" />
-
+	<!-- 文件上传配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>10000000</value>
+		</property>
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
 
 </beans>

@@ -35,18 +35,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User isUernameMatchPassword(String userName, String password) {
-		User user = userMapper.findUserByUserName(userName);
-		if (password.equals(user.getUser_password())) {
-			return user;
-		}else {
-			return null;
-		}
+		User user = userMapper.findUserByUserNameAndPassword(userName, password);
+		return user;
 	}
 
 	public void updateUserInfo(String userName, int sex, String profiles) {
 		// TODO Auto-generated method stub
 		userMapper.updateUserInfo(userName, sex, profiles);
 	}
-
 
 }

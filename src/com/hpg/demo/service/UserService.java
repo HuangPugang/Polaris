@@ -1,8 +1,6 @@
 package com.hpg.demo.service;
 
 
-import org.apache.ibatis.annotations.Param;
-
 import com.hpg.demo.bean.User;
 
 
