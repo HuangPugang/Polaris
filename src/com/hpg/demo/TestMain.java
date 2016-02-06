@@ -4,14 +4,11 @@ package com.hpg.demo;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 public class TestMain {
 	
 	public static void main(String[] args) {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-servlet.xml");
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-servlet.xml");
 //		System.out.println(JSONUtil.beanListToJSON(postImageMapper.findByPostId(1)));
 //		CommentMapper commentMapper = (CommentMapper) ctx.getBean("commentMapper");
 //		System.out.println(commentMapper.getCommentListByPostId(1));
